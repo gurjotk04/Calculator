@@ -1,10 +1,27 @@
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptEngine;
+import net.objecthunter.exp4j.Expression;
+import net.objecthunter.exp4j.ExpressionBuilder;
 
+/**
+ * It takes a string, converts it to an expression, and evaluates it
+ */
 public class SE {
-    public Object calculation(String s) throws Exception {
-        ScriptEngineManager manager = new ScriptEngineManager();
-        ScriptEngine engine = manager.getEngineByName("Javascript");
-        return engine.eval(s).toString();
+
+    /**
+     * Method that feeds a string expression into an expression evaluator.
+     * @param s A string expression to be solved.
+     * @return either an error string or the answer in string form.
+     * @throws Exception
+     */
+    public static String calculation(String s) throws Exception {
+        String result;
+        Expression exp;
+        try{
+            exp = new ExpressionBuilder(s).build();   
+            result = Double.toString(exp.evaluate());
+        } catch (Exception e){
+            return "Error";
+        }
+        
+        return result;
     }
 }
